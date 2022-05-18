@@ -1,5 +1,5 @@
 # DoubleSpeedVideos
-On a Windows Machine, it recursively collects all .mp4 files and doubles their speed using FFMPEG
+On a Windows Machine, it recursively collects all .mp4 files and doubles their audio and video via an FFMPEG complex filter.
 <br/>
 <br/>
 Make sure: 
