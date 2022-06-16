@@ -9,7 +9,7 @@ command to speed it up 2x."""
 
 
 def find_video_paths():
-    top_dir = "C:\\Users\\tyson\\Desktop\\ffmpeg-work\\"
+    top_dir = "C:\\Users\\guy\\Desktop\\ffmpeg-work\\"
     video_paths = []
     for dirpath, dirnames, filenames in os.walk(top_dir):
         for filename in filenames:
@@ -19,19 +19,20 @@ def find_video_paths():
 
 
 def speed_up_video(video_paths, speed_factor=2):
-    error_check = (0, 0, 0)  # no errors
+    # error_check = (0, 0, 0)  # no errors
     for video_path in video_paths:
-        if error_check[0] != 0:
-            print(
-                f"Error '{error_check[0]}' with command: '{error_check[1]}'. Console Output: '{error_check[2]}'"
-            )
-            error_check = (0, 0, 0)
-            continue
+        # if error_check[0] != 0:
+        #     print(
+        #         f"Error '{error_check[0]}' with command: '{error_check[1]}'. Console Output: '{error_check[2]}'"
+        #     )
+        #     error_check = (0, 0, 0)
+        #     continue
         video_filename = os.path.basename(video_path)
+        print(f"{video_filename = }")
         output = subprocess.run(
             f'ffmpeg -i "{video_path}" -filter_complex "[0:v]setpts=0.5*PTS[v];[0:a]atempo=2.0[a]" -map "[v]" -map "[a]" "{os.path.join(os.path.dirname(video_path), video_filename[:-4] + "_2x.mp4")}"'
         )
-        error_check = (output.returncode, output.args, output.stdout)
+        # error_check = (output.returncode, output.args, output.stdout)
 
 
 def replace_old_vids():
@@ -51,9 +52,18 @@ def replace_old_vids():
 
 def main():
     video_paths = find_video_paths()
+    print(video_paths)
     speed_up_video(video_paths)
     replace_old_vids()
 
 
 if __name__ == "__main__":
     main()
+[
+    "C:\\Users\\guy\\Desktop\\ffmpeg-work\\graphing_functions.wdgt\\._0.mp4",
+    "C:\\Users\\guy\\Desktop\\ffmpeg-work\\graphing_functions.wdgt\\._1.mp4",
+    "C:\\Users\\guy\\Desktop\\ffmpeg-work\\graphing_functions.wdgt\\._2.mp4",
+    "C:\\Users\\guy\\Desktop\\ffmpeg-work\\graphing_functions.wdgt\\0.mp4",
+    "C:\\Users\\guy\\Desktop\\ffmpeg-work\\graphing_functions.wdgt\\1.mp4",
+    "C:\\Users\\guy\\Desktop\\ffmpeg-work\\graphing_functions.wdgt\\2.mp4",
+]
